@@ -4,8 +4,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-
-
 class AdminUserController extends Controller
 {
     // Affiche la liste des demandes de contributeur en attente
@@ -21,36 +19,51 @@ class AdminUserController extends Controller
         $user->update(['role' => 'contrib']);
         return redirect()->back()->with('success', 'Utilisateur approuvé en tant que contributeur.');
     }
-        public function index()
+     public function promote(User $user)
+    {
+        if ($user->role === 'user') {
+            $user->role = 'contrib';
+        } elseif ($user->role === 'contrib') {
+            $user->role = 'admin';
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Rôle utilisateur mis à jour avec succès.');
+    }
+
+    public function demote(User $user)
+    {
+        if ($user->role === 'admin') {
+            $user->role = 'contrib';
+        } elseif ($user->role === 'contrib') {
+            $user->role = 'user';
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Rôle utilisateur mis à jour avec succès.');
+    }
+    public function index()
     {
         $users = User::all(); // Récupérer tous les utilisateurs
         return view('admin.users.index', compact('users')); // Retourner la vue avec les données des utilisateurs
     }
-public function update(Request $request, User $user)
-{
-    \Log::info('Request data:', $request->all());
+    
+    
+    
+    
+    
 
-    $validatedData = $request->validate([
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-        'role' => 'required|in:user,contrib,admin'
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $id,
     ]);
 
-    \Log::info('Validated data:', $validatedData);
+    $user = User::findOrFail($id);
+    $user->update($request->only('name', 'email'));
 
-    if ($request->has('role')) {
-        $user->role = $request->role;
-        \Log::info('Role to update:', [$user->role]);
-    }
-
-    $user->name = $validatedData['name'];
-    $user->email = $validatedData['email'];
-    $user->save();
-
-    return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+    return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
 }
-
-
 
 
     public function edit($id)
@@ -58,5 +71,4 @@ public function update(Request $request, User $user)
         $user = User::findOrFail($id);
         return view('admin.users.edit', compact('user'));
     }
-
 }

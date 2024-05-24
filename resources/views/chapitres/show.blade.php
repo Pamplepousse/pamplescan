@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+
+@section('content')
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,7 +22,6 @@
     </style>
 </head>
 <body>
-    @include('layouts.app')
 
 
     <div class="container mt-4">
@@ -61,4 +64,4 @@
     </div>
 </body>
 </html>
-
+@endsection

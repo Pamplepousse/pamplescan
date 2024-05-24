@@ -13,6 +13,7 @@ class Chapitre extends Model
     protected $guarded = [];
             protected $primaryKey = 'idchap';
              public $timestamps = false;
+             protected $dates = ['created_at'];
 
     // Assurez-vous que l'ID est correctement configuré et accessible
     public function getImagesAttribute()
@@ -34,8 +35,8 @@ class Chapitre extends Model
 
         return $imagePaths;
     }
-    public function manga()
+public function manga()
     {
-        return $this->belongsTo(Manga::class, 'idmanga', 'idmanga');
+        return $this->belongsTo(Manga::class, 'idmanga');
     }
 }

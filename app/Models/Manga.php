@@ -32,6 +32,9 @@ class Manga extends Model
     {
         return $this->belongsToMany(Category::class, 'category_manga', 'manga_id', 'category_id');
     }
+    public function comments() {
+        return $this->hasMany(Comment::class, 'manga_id', 'idmanga');
+    }
     public function categoriesNames()
     {
         $categoryIds = explode(',', $this->categorie);  // Assumant que 'categorie' est une liste d'IDs séparés par des virgules
