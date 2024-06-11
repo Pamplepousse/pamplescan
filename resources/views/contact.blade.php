@@ -3,6 +3,11 @@
 @section('content')
 <div class="container mt-4">
     <h2>Contactez-nous</h2>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <form action="{{ route('contact.send') }}" method="POST">
         @csrf
         <div class="mb-3">

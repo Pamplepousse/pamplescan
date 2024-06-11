@@ -1,14 +1,6 @@
-{{-- resources/views/chapitres/chapitre_details.blade.php --}}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ $chapitre->titlechap }}</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.app')
 
+@section('content')
 <main class="container mt-5">
     <h1>Chapitre: {{ $chapitre->titlechap }}</h1>
     <div>
@@ -19,6 +11,4 @@
         @endforeach
     </div>
 </main>
-
-</body>
-</html>
+@endsection

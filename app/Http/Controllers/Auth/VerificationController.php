@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Http\Request;
 
 class VerificationController extends Controller
 {
@@ -35,7 +38,17 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+     public function sendVerificationEmail(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->back()->with('message', 'Votre adresse e-mail est déjà vérifiée.');
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->back()->with('message', 'Email de vérification envoyé avec succès.');
     }
 }

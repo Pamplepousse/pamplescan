@@ -1,9 +1,12 @@
+@extends('layouts.app')
+
+
+@section('content')
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Chapitre: {{ $chapitre->numchap }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @media (min-width: 992px) {
             .image-container img {
@@ -18,11 +21,10 @@
     </style>
 </head>
 <body>
-    @include('layouts.app')
 
 
     <div class="container mt-4">
-        <h1 class="text-center"><a href="{{ url('/mangas/' . $chapitre->manga->idmanga) }}">{{ $chapitre->manga->titres }}</a></h1>
+        <h1 class="text-center"> <a href="{{ url('/mangas/' . $chapitre->manga->idmanga) }}" style="color: black;">{{ $chapitre->manga->titres }}</a></h1>
         <h2 class="text-center">{{ $chapitre->titlechap }}</h2>
         <nav class="mb-5 d-flex justify-content-center">
             @if($prevChapitre)
@@ -61,4 +63,4 @@
     </div>
 </body>
 </html>
-
+@endsection

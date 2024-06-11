@@ -1,4 +1,3 @@
-{{-- Vue Blade pour la création d'un manga --}}
 @extends('layouts.app')
 
 @section('content')

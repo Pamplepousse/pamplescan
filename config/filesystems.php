@@ -28,12 +28,11 @@ return [
     |
     */
 
-    'disks' => [
-
+        'disks' => [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-            'throw' => false,
+            'max_upload_size' => env('UPLOAD_MAX_SIZE', 128 * 1024 * 1024),
         ],
 
         'public' => [

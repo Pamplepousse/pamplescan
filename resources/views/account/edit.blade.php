@@ -5,30 +5,44 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Modifier Mon Compte') }}</div>
+                <div class="card-header">{{ __('Modifier mon profil') }}</div>
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('account.update') }}">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group">
-                            <label for="name">{{ __('Nom') }}</label>
-                            <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+                            <label for="name">Nom</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">{{ __('Email') }}</label>
-                            <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required autocomplete="email">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="password">{{ __('Nouveau mot de passe (laisser vide pour ne pas changer)') }}</label>
-                            <input id="password" type="password" class="form-control" name="password" autocomplete="new-password">
-                            <input type="password" class="form-control mt-2" name="password_confirmation" placeholder="Confirmer le mot de passe">
+                            <label for="gender">Genre</label>
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Homme</option>
+                                <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Femme</option>
+                                <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Autre</option>
+                            </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Mettre à jour') }}
-                        </button>
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <small>Laissez vide si vous ne souhaitez pas changer votre mot de passe</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
                     </form>
                 </div>
             </div>
@@ -36,3 +50,4 @@
     </div>
 </div>
 @endsection
+
