@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil Manga</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    @include('layouts.app')
-<header class="bg-dark py-3">
-    <div class="container">
-        <h1 class="text-white">Accueil Manga</h1>
-    </div>
-</header>
+@section('content')
 
+@include('layouts.app')
 <main class="container mt-5">
     <section id="latest-mangas">
         <h2 class="mb-4">Derniers Mangas Ajoutés</h2>
@@ -37,13 +24,6 @@
     </section>
 </main>
 
-<footer class="bg-dark text-white mt-5 py-3">
-    <div class="container">
-        <p>Votre contenu de pied de page ici</p>
-    </div>
-</footer>
-
-<!-- Bootstrap JS avec Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+@endsection

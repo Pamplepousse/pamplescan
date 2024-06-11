@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Modifier l'utilisateur</h1>
-    <form method="POST" action="{{ route('admin.users.update', $user->id) }}">
+    <h1>Éditer un Utilisateur</h1>
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -12,9 +12,9 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
+            <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
         </div>
-
+       
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>
 </div>

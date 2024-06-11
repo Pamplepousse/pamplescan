@@ -5,29 +5,29 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-public function send(Request $request)
-{
-    $data = $request->validate([
-        'name' => 'required|max:255',
-        'email' => 'required|email',
-        'message' => 'required'
-    ]);
+    // Handle the sending of contact form messages
+    public function send(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'message' => 'required'
+        ]);
 
-    // Préparez les données pour l'email
-    $emailData = [
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'userMessage' => $data['message']
-    ];
+        // Prepare the data for the email
+        $emailData = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'userMessage' => $data['message']
+        ];
 
-    Mail::send('emails.contact', $emailData, function($message) use ($data) {
-        $message->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
-                ->subject('Nouveau Message de Contact')
-                ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')); // Utiliser l'adresse configurée pour SMTP
-    });
+        // Send the email using the configured SMTP settings
+        Mail::send('emails.contact', $emailData, function($message) use ($data) {
+            $message->to(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
+                    ->subject('New Contact Message')
+                    ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')); // Use the configured SMTP address
+        });
 
-    return redirect()->route('contact')->with('success', 'Votre message a été envoyé avec succès!');
-}
-
-
+        return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
+    }
 }
